@@ -4,7 +4,7 @@ from django.db import models
 CHOICES = (
     ('Gray', 'Серый'),
     ('Black', 'Чёрный'),
-    ('Wite', 'Белый'),
+    ('White', 'Белый'),
     ('Gringer', 'Рыжий'),
     ('Mixed', 'Смешанный'),
 )
