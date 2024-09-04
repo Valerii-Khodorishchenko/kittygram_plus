@@ -3,7 +3,7 @@ import datetime as dt
 import webcolors
 from rest_framework import serializers
 
-from .models import Achievement, AchievementCat, Cat, Owner
+from .models import Achievement, AchievementCat, Cat, CHOICES, Owner
 
 
 class Hex2NameColor(serializers.Field):
@@ -40,7 +40,8 @@ class CatSerializer(serializers.ModelSerializer):
         many=True
     )
     age = serializers.SerializerMethodField()
-    color = Hex2NameColor() # Вот он - наш собственный тип поля
+    # Теперь поле примет только значение, упомянутое в списке CHOICES
+    color = serializers.ChoiceField(choices=CHOICES)
 
     class Meta:
         model = Cat
