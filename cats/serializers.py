@@ -10,6 +10,7 @@ class Hex2NameColor(serializers.Field):
     # При чтении данных ничего не меняем - просто возвращяем как есть
     def to_representation(self, value):
         return value
+
     # При записи код цвета конвертируется в его название
     def to_internal_value(self, data):
         # Доверяй но проверяй
@@ -24,10 +25,11 @@ class Hex2NameColor(serializers.Field):
 
 
 class AchievementSerializer(serializers.ModelSerializer):
+    achievement_name = serializers.CharField(source='name')
 
     class Meta:
         model = Achievement
-        fields = ('id', 'name')
+        fields = ('id', 'achievement_name')
 
 
 class CatSerializer(serializers.ModelSerializer):
