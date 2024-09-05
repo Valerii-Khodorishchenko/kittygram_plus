@@ -6,7 +6,7 @@ from cats.views import CatViewSet, LightCatViewSet, OwnerViewSet
 
 
 router = DefaultRouter()
-router.register('cats', CatViewSet)
+router.register('cats', CatViewSet, basename='cats')
 router.register('owners', OwnerViewSet)
 router.register(r'mycats', LightCatViewSet)
 
