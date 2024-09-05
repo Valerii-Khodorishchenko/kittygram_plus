@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
+    'djoser',  # Djoser должно быть зарегистрировано после django.contrib.auth
     'cats.apps.CatsConfig',
 ]
 
@@ -127,13 +129,28 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# REST_FRAMEWORK = {
+#     # запрет доступа всем нефутентифицированным пользователям
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+#     ],
+#     # Объявляем способ аутентификации
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#     ]
+# }
+
 REST_FRAMEWORK = {
-    # запрет доступа всем нефутентифицированным пользователям
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASS': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    # Объявляем способ аутентификации
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+}
+
+SIMPLE_JWT = {
+    # Установим срок жизни токена
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
